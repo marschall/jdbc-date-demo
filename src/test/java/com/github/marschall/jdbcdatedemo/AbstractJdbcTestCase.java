@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
 import javax.sql.DataSource;
@@ -109,7 +110,7 @@ public abstract class AbstractJdbcTestCase {
     // 2016-10-30 03:00 -> 2016-10-30 02:00
     // UTC offset +2 -> +1
     // make sure we have the second 2:55, the one in winter time
-    ZonedDateTime zonedDateTime = ZonedDateTime.parse("2016-10-30T02:55+02:00[Europe/Paris]");
+    ZonedDateTime zonedDateTime = ZonedDateTime.parse("2016-10-30T02:55+01:00[Europe/Paris]");
     Timestamp insertedTimestamp = Timestamp.from(zonedDateTime.toInstant());
 
     try (Connection connection = this.dataSource.getConnection()) {
@@ -141,6 +142,13 @@ public abstract class AbstractJdbcTestCase {
       }
     }
 
+  }
+
+  @Test
+  public void testUtc() {
+    ZonedDateTime cest = ZonedDateTime.parse("2016-03-27T04:15:00+02:00[Europe/Paris]");
+    ZonedDateTime utc = cest.withZoneSameInstant(ZoneOffset.UTC);
+    assertEquals(LocalDateTime.of(2016, 3, 27, 2, 15), utc.toLocalDateTime());
   }
 
 }
