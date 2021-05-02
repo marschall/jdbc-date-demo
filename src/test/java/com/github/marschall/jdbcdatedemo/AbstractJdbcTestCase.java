@@ -1,7 +1,8 @@
 package com.github.marschall.jdbcdatedemo;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,32 +16,24 @@ import java.time.ZonedDateTime;
 
 import javax.sql.DataSource;
 
-import org.junit.ClassRule;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.junit4.rules.SpringClassRule;
-import org.springframework.test.context.junit4.rules.SpringMethodRule;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Sql("classpath:schema.sql")
+@SpringJUnitConfig
 @ContextConfiguration(classes = TestConfiguration.class)
-public abstract class AbstractJdbcTestCase {
-
-  @ClassRule
-  public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule();
-
-  @Rule
-  public final SpringMethodRule springMethodRule = new SpringMethodRule();
+abstract class AbstractJdbcTestCase {
 
   @Autowired
   private DataSource dataSource;
 
   @Test
-  public void testConversion() throws SQLException {
+  void testConversion() throws SQLException {
     // 2016-03-27 02:00 -> 2016-03-27 03:00
     // UTC offset +1 -> +2
     try (Connection connection = this.dataSource.getConnection()) {
@@ -73,7 +66,7 @@ public abstract class AbstractJdbcTestCase {
   }
 
   @Test
-  public void testDirectDataTypes() throws SQLException {
+  void testDirectDataTypes() throws SQLException {
     // 2016-03-27 02:00 -> 2016-03-27 03:00
     // UTC offset +1 -> +2
     try (Connection connection = this.dataSource.getConnection()) {
@@ -106,7 +99,7 @@ public abstract class AbstractJdbcTestCase {
   }
 
   @Test
-  public void testOldType() throws SQLException {
+  void testOldType() throws SQLException {
     // 2016-10-30 03:00 -> 2016-10-30 02:00
     // UTC offset +2 -> +1
     // make sure we have the second 2:55, the one in winter time
@@ -145,7 +138,7 @@ public abstract class AbstractJdbcTestCase {
   }
 
   @Test
-  public void testUtc() {
+  void testUtc() {
     ZonedDateTime cest = ZonedDateTime.parse("2016-03-27T04:15:00+02:00[Europe/Paris]");
     ZonedDateTime utc = cest.withZoneSameInstant(ZoneOffset.UTC);
     assertEquals(LocalDateTime.of(2016, 3, 27, 2, 15), utc.toLocalDateTime());

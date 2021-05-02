@@ -9,10 +9,6 @@
   <description>Demonstrates date issues with JDBC</description>
   <inceptionYear>2016</inceptionYear>
 
-  <prerequisites>
-    <maven>3.0.5</maven>
-  </prerequisites>
-
   <url>https://github.com/marschall/jdbc-date-demo</url>
 
   <scm>
@@ -47,7 +43,21 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-framework-bom</artifactId>
-        <version>5.2.8.RELEASE</version>
+        <version>5.3.6</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>5.7.1</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>2.14.1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -57,9 +67,13 @@
   <dependencies>
 
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
 
@@ -93,33 +107,29 @@
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-core</artifactId>
-      <version>${log4j.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
-      <version>${log4j.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-jcl</artifactId>
-      <version>${log4j.version}</version>
-      <scope>test</scope>
     </dependency>
     
     <!-- jdbc driver -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.2.16</version>
+      <version>42.2.20</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.21</version>
+      <version>8.0.24</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -198,57 +208,56 @@
     <pluginManagement>
       <plugins>
         <plugin>
-          <artifactId>maven-javadoc-plugin</artifactId>
-          <version>2.10.3</version>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
         </plugin>
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.3</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-resources-plugin</artifactId>
-          <version>2.7</version>
-        </plugin>
-        <plugin>
-          <groupId>org.jboss.jandex</groupId>
-          <artifactId>jandex-maven-plugin</artifactId>
-          <version>1.0.3</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-source-plugin</artifactId>
-          <version>2.4</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-gpg-plugin</artifactId>
-          <version>1.6</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-release-plugin</artifactId>
-          <version>2.5.2</version>
+          <version>3.8.1</version>
         </plugin>
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
         </plugin>
         <plugin>
-          <artifactId>maven-surefire-plugin</artifactId>
-          <version>2.18.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-clean-plugin</artifactId>
-          <version>2.6.1</version>
-        </plugin>
-        <plugin>
-          <artifactId>maven-scm-plugin</artifactId>
-          <version>1.9.4</version>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.6</version>
         </plugin>
         <plugin>
           <artifactId>maven-install-plugin</artifactId>
           <version>2.5.2</version>
         </plugin>
         <plugin>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>3.1.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-javadoc-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.2.0</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-release-plugin</artifactId>
+          <version>2.5.3</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-scm-plugin</artifactId>
+          <version>1.11.2</version>
+        </plugin>
+        <plugin>
           <artifactId>maven-site-plugin</artifactId>
-          <version>3.4</version>
+          <version>3.9.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-source-plugin</artifactId>
+          <version>3.2.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.2</version>
         </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings 
           only. It has no influence on the Maven build itself. -->
